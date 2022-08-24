@@ -250,7 +250,8 @@ public class CalculatorApp {
 		btn2.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btn2.setBounds(103, 270, 83, 50);
 		frame.getContentPane().add(btn2);
-		// 
+		
+		
 		// 3
 		btn3 = new JButton("3");
 		btn3.addActionListener(new ActionListener() {
