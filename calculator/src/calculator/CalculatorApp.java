@@ -85,8 +85,6 @@ public class CalculatorApp {
 		frame.getContentPane().add(calText);
 		calText.setColumns(10);
 
-		int x = 0;
-		
 		btnC = new JButton("C");
 		btnC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -252,7 +250,7 @@ public class CalculatorApp {
 		btn2.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btn2.setBounds(103, 270, 83, 50);
 		frame.getContentPane().add(btn2);
-		
+		// 
 		// 3
 		btn3 = new JButton("3");
 		btn3.addActionListener(new ActionListener() {
