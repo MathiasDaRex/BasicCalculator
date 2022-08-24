@@ -12,6 +12,9 @@ import java.util.OptionalDouble;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.Button;
+import java.awt.Color;
+import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 
 public class CalculatorApp {
 
@@ -42,9 +45,11 @@ public class CalculatorApp {
 	private boolean write = true; // Connect numbers in display
 	private double value = 0; // Save the value typed for calculation
 	
+	private Color  red  = new Color(255, 0, 0);
 	
-	private OptionalDouble x1;
-	private OptionalDouble x2;
+	
+	private Double x1;
+	private Double x2;
 	private boolean first = true;
 
 	/**
@@ -80,6 +85,7 @@ public class CalculatorApp {
 		frame.getContentPane().setLayout(null);
 		
 		calText = new JTextField();
+		calText.setHorizontalAlignment(SwingConstants.RIGHT);
 		calText.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		calText.setBounds(10, 11, 364, 65);
 		frame.getContentPane().add(calText);
@@ -92,6 +98,9 @@ public class CalculatorApp {
 				calText.setText("0");
 				operator = ' ';
 				value = 0;
+				x1 = 0.0;
+				x2 = 0.0;
+				first=true;
 			}
 		});
 		btnC.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -145,12 +154,24 @@ public class CalculatorApp {
 		
 		// X
 		btnX = new JButton("X");
+		btnX.setBackground(UIManager.getColor("Button.background"));
 		btnX.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnX.setBounds(291, 148, 83, 50);
 		frame.getContentPane().add(btnX);
 		
 		// /
 		btnDiv = new JButton("/");
+		btnDiv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(first==true && !calText.getText().isEmpty()) {
+					x1= Double.valueOf(calText.getText());
+					calText.setText("");
+					btnDiv.setBackground(red);
+					first=false;
+					operator='/';
+				}
+			}
+		});
 		btnDiv.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnDiv.setBounds(291, 87, 83, 50);
 		frame.getContentPane().add(btnDiv);
@@ -183,6 +204,23 @@ public class CalculatorApp {
 		
 		// =
 		btnSum = new JButton("=");
+		btnSum.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(!first) {
+					if(operator=='/') {
+					x2 = Double.valueOf(calText.getText());
+					value = x1/x2;
+					System.out.println(x1 + "" + operator + "" + x2);
+					System.out.println(value);
+					x1=value;
+					x2=null;
+					calText.setText(value+"");
+					btnDiv.setBackground(UIManager.getColor(btn0));
+					operator=' ';
+					}
+				}
+			}
+		});
 		btnSum.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnSum.setBounds(291, 331, 83, 50);
 		frame.getContentPane().add(btnSum);
@@ -191,23 +229,23 @@ public class CalculatorApp {
 		btn0 = new JButton("0");
 		btn0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(first) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("0");
-					} else {
-						calText.setText(calText.getText()+"0");
-					}
-				}
-				
-//				if(write) {
+//				if(first) {
 //					if(Pattern.matches("[0]*", calText.getText())) {
 //						calText.setText("0");
 //					} else {
-//						calText.setText(calText.getText() + "0");
-//						write = true;
+//						calText.setText(calText.getText()+"0");
 //					}
-//					go = true;
 //				}
+				
+				if(write) {
+					if(Pattern.matches("[0]*", calText.getText())) {
+						calText.setText("0");
+					} else {
+						calText.setText(calText.getText() + "0");
+						write = true;
+					}
+					go = true;
+				}
 				
 			}
 		});
