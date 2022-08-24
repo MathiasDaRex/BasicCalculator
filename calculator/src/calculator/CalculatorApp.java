@@ -425,7 +425,5 @@ public class CalculatorApp {
 		frame.getContentPane().add(btn9);
 	}
 	
-	private void redoFont() {
-		calText.setFont(calText.getFont().deriveFont(Font.PLAIN));
-	}
+	
 }
