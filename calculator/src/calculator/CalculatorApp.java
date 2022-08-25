@@ -323,16 +323,7 @@ public class CalculatorApp {
 		btn0 = new JButton("0");
 		btn0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(write) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("0");
-					} else {
-						calText.setText(calText.getText() + "0");
-						write = true;
-					}
-					go = true;
-				}
-				
+				numAction(0);
 			}
 		});
 		btn0.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -362,13 +353,7 @@ public class CalculatorApp {
 		btn2 = new JButton("2");
 		btn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(write) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("2");
-					} else {
-						calText.setText(calText.getText() + "2");
-					}
-				}
+				numAction(2);
 			}
 		});
 		btn2.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -381,15 +366,7 @@ public class CalculatorApp {
 		btn3.setBackground(btnColor);
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(write) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("3");
-					} else {
-						calText.setText(calText.getText()+"3");
-						write = true;
-					}
-					go = true;
-				}
+				numAction(3);
 			}
 		});
 		btn3.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -400,15 +377,7 @@ public class CalculatorApp {
 		btn4 = new JButton("4");
 		btn4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(write) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("4");
-					} else {
-						calText.setText(calText.getText() + "4");
-						write = true;
-					}
-					go = true;
-				}
+				numAction(4);
 			}
 		});
 		btn4.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -419,15 +388,7 @@ public class CalculatorApp {
 		btn5 = new JButton("5");
 		btn5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(write) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("5");
-					} else {
-						calText.setText(calText.getText() + "5");
-						write = true;
-					}
-					go = true;
-				}
+				numAction(5);
 			}
 		});
 		btn5.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -438,15 +399,7 @@ public class CalculatorApp {
 		btn6 = new JButton("6");
 		btn6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(write) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("6");
-					} else {
-						calText.setText(calText.getText() + "6");
-						write = true;
-					}
-					go = true;
-				}
+				numAction(6);
 			}
 		});
 		btn6.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -457,15 +410,7 @@ public class CalculatorApp {
 		btn7 = new JButton("7");
 		btn7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(write) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("7");
-					} else {
-						calText.setText(calText.getText() + "7");
-						write = true;
-					}
-					go = true;
-				}
+				numAction(7);
 			}
 		});
 		btn7.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -476,15 +421,7 @@ public class CalculatorApp {
 		btn8 = new JButton("8");
 		btn8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(write) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("8");
-					} else {
-						calText.setText(calText.getText() + "8");
-						write = true;
-					}
-					go = true;
-				}
+				numAction(8);
 			}
 		});
 		btn8.setFont(new Font("Tahoma", Font.BOLD, 20));
