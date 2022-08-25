@@ -90,8 +90,6 @@ public class CalculatorApp {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		// IS THE COMMIT SHOWIN' UP?
-		
 		calText = new JTextField();
 		calText.setHorizontalAlignment(SwingConstants.RIGHT);
 		calText.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -102,7 +100,6 @@ public class CalculatorApp {
 		btnC = new JButton("C");
 		btnC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//redoFont();
 				calText.setText("0");
 				operator = ' ';
 				value = 0;
@@ -119,8 +116,6 @@ public class CalculatorApp {
 		btnC.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnC.setBounds(10, 87, 83, 50);
 		frame.getContentPane().add(btnC);
-		
-		
 		
 		// <-
 		btnBack = new JButton("<-");
@@ -246,7 +241,6 @@ public class CalculatorApp {
 			public void actionPerformed(ActionEvent arg0) {
 				if(opActive == true) {
 					switch (operator) {
-					
 					case '+':
 						x2 = Double.valueOf(calText.getText());
 						value = x1+x2;
@@ -316,9 +310,7 @@ public class CalculatorApp {
 						break;
 					
 					default:
-						
 						JOptionPane.showMessageDialog(null, "Choose an operator!", "Error", JOptionPane.ERROR_MESSAGE);
-					
 					}
 				}
 			}
@@ -423,7 +415,6 @@ public class CalculatorApp {
 		btn4.setBounds(10, 209, 83, 50);
 		frame.getContentPane().add(btn4);
 		
-		
 		// 5
 		btn5 = new JButton("5");
 		btn5.addActionListener(new ActionListener() {
@@ -504,15 +495,7 @@ public class CalculatorApp {
 		btn9 = new JButton("9");
 		btn9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(write) {
-					if(Pattern.matches("[0]*", calText.getText())) {
-						calText.setText("9");
-					} else {
-						calText.setText(calText.getText() + "9");
-						write = true;
-					}
-					go = true;
-				}
+				numAction(9);
 			}
 		});
 		btn9.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -520,5 +503,18 @@ public class CalculatorApp {
 		frame.getContentPane().add(btn9);
 	}
 	
+	
+	private void numAction(int num) {
+		String i = Integer.toString(num);
+		if(write) {
+			if(Pattern.matches("[0]*", calText.getText())) {
+				calText.setText(i);
+			} else {
+				calText.setText(calText.getText() + i);
+				write = true;
+			}
+			go = true;
+		}
+	}
 	
 }
