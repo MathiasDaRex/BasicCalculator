@@ -3,6 +3,8 @@ package calculator;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -15,6 +17,7 @@ import java.awt.Button;
 import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
+import javax.swing.ButtonGroup;
 
 public class CalculatorApp {
 
@@ -46,11 +49,14 @@ public class CalculatorApp {
 	private double value = 0; // Save the value typed for calculation
 	
 	private Color  red  = new Color(255, 0, 0);
+	private Color btnColor = UIManager.getColor("Button.background");
 	
 	
 	private Double x1;
 	private Double x2;
-	private boolean first = true;
+	// private boolean first = true;
+	private boolean opActive = false;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -100,7 +106,12 @@ public class CalculatorApp {
 				value = 0;
 				x1 = 0.0;
 				x2 = 0.0;
-				first=true;
+				opActive=false;
+				btnDiv.setBackground(btnColor);
+				btnMin.setBackground(btnColor);
+				btnPlus.setBackground(btnColor);
+				btnX.setBackground(btnColor);
+				btnPerc.setBackground(btnColor);
 			}
 		});
 		btnC.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -134,11 +145,16 @@ public class CalculatorApp {
 		
 		// +
 		btnPlus = new JButton("+");
+		buttonGroup.add(btnPlus);
 		btnPlus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int plus1 = Integer.parseInt(calText.getText());
-				System.out.println(plus1);
-				calText.setText(calText.getText()+"+");
+				if(opActive==false && !calText.getText().isEmpty()) {
+					x1 = Double.parseDouble(calText.getText());
+					calText.setText("");
+					btnPlus.setBackground(red);
+					opActive = true;
+					operator='+';
+				}
 				
 			}
 		});
@@ -148,26 +164,50 @@ public class CalculatorApp {
 		
 		// -
 		btnMin = new JButton("-");
+		btnMin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(opActive==false && !calText.getText().isEmpty()) {
+					x1 = Double.valueOf(calText.getText());
+					calText.setText("");
+					btnMin.setBackground(red);
+					opActive = true;
+					operator='-';
+				}
+			}
+		});
+		buttonGroup.add(btnMin);
 		btnMin.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnMin.setBounds(291, 209, 83, 50);
 		frame.getContentPane().add(btnMin);
 		
 		// X
 		btnX = new JButton("X");
-		btnX.setBackground(UIManager.getColor("Button.background"));
+		buttonGroup.add(btnX);
+		btnX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(opActive==false && !calText.getText().isEmpty()) {
+					x1 = Double.valueOf(calText.getText());
+					calText.setText("");
+					btnX.setBackground(red);
+					opActive = true;
+					operator='*';
+				}
+			}
+		});
 		btnX.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnX.setBounds(291, 148, 83, 50);
 		frame.getContentPane().add(btnX);
 		
 		// /
 		btnDiv = new JButton("/");
+		buttonGroup.add(btnDiv);
 		btnDiv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(first==true && !calText.getText().isEmpty()) {
+				if(opActive==false && !calText.getText().isEmpty()) {
 					x1= Double.valueOf(calText.getText());
 					calText.setText("");
 					btnDiv.setBackground(red);
-					first=false;
+					opActive=true;
 					operator='/';
 				}
 			}
@@ -190,10 +230,6 @@ public class CalculatorApp {
 					if(!calText.getText().contains(".")) {
 						calText.setText(calText.getText()+".");
 					}
-//					} else {
-//						calText.setText("0.");
-//						write = true;
-//					}
 					go = true;
 				}
 			}
@@ -206,17 +242,81 @@ public class CalculatorApp {
 		btnSum = new JButton("=");
 		btnSum.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(!first) {
-					if(operator=='/') {
-					x2 = Double.valueOf(calText.getText());
-					value = x1/x2;
-					System.out.println(x1 + "" + operator + "" + x2);
-					System.out.println(value);
-					x1=value;
-					x2=null;
-					calText.setText(value+"");
-					btnDiv.setBackground(UIManager.getColor(btn0));
-					operator=' ';
+				if(opActive == true) {
+					switch (operator) {
+					
+					case '+':
+						x2 = Double.valueOf(calText.getText());
+						value = x1+x2;
+						System.out.println(x1 + "" + operator + "" + x2);
+						System.out.println(value);
+						x1=null;
+						x2=null;
+						calText.setText(value+"");
+						btnDiv.setBackground(btnColor);
+						btnMin.setBackground(btnColor);
+						btnPlus.setBackground(btnColor);
+						btnX.setBackground(btnColor);
+						btnPerc.setBackground(btnColor);
+						opActive = false;
+						operator=' ';
+						break;
+						
+					case '-':
+						x2 = Double.valueOf(calText.getText());
+						value = x1-x2;
+						System.out.println(x1 + "" + operator + "" + x2);
+						System.out.println(value);
+						x1=null;
+						x2=null;
+						calText.setText(value+"");
+						btnDiv.setBackground(btnColor);
+						btnMin.setBackground(btnColor);
+						btnPlus.setBackground(btnColor);
+						btnX.setBackground(btnColor);
+						btnPerc.setBackground(btnColor);
+						opActive = false;
+						operator=' ';
+						break;
+					
+					case '/':
+						x2 = Double.valueOf(calText.getText());
+						value = x1/x2;
+						System.out.println(x1 + "" + operator + "" + x2);
+						System.out.println(value);
+						x1=null;
+						x2=null;
+						calText.setText(value+"");
+						btnDiv.setBackground(btnColor);
+						btnMin.setBackground(btnColor);
+						btnPlus.setBackground(btnColor);
+						btnX.setBackground(btnColor);
+						btnPerc.setBackground(btnColor);
+						opActive = false;
+						operator=' ';
+						break;
+						
+					case '*':
+						x2 = Double.valueOf(calText.getText());
+						value = x1*x2;
+						System.out.println(x1 + "" + operator + "" + x2);
+						System.out.println(value);
+						x1=null;
+						x2=null;
+						calText.setText(value+"");
+						btnDiv.setBackground(btnColor);
+						btnMin.setBackground(btnColor);
+						btnPlus.setBackground(btnColor);
+						btnX.setBackground(btnColor);
+						btnPerc.setBackground(btnColor);
+						opActive = false;
+						operator=' ';
+						break;
+					
+					default:
+						
+						JOptionPane.showMessageDialog(null, "Choose an operator!", "Error", JOptionPane.ERROR_MESSAGE);
+					
 					}
 				}
 			}
@@ -229,14 +329,6 @@ public class CalculatorApp {
 		btn0 = new JButton("0");
 		btn0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				if(first) {
-//					if(Pattern.matches("[0]*", calText.getText())) {
-//						calText.setText("0");
-//					} else {
-//						calText.setText(calText.getText()+"0");
-//					}
-//				}
-				
 				if(write) {
 					if(Pattern.matches("[0]*", calText.getText())) {
 						calText.setText("0");
@@ -292,6 +384,7 @@ public class CalculatorApp {
 		
 		// 3
 		btn3 = new JButton("3");
+		btn3.setBackground(btnColor);
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(write) {
