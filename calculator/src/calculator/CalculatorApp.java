@@ -90,6 +90,8 @@ public class CalculatorApp {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		// IS THE COMMIT SHOWIN' UP?
+		
 		calText = new JTextField();
 		calText.setHorizontalAlignment(SwingConstants.RIGHT);
 		calText.setFont(new Font("Tahoma", Font.PLAIN, 18));
