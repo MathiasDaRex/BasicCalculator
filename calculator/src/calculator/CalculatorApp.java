@@ -162,6 +162,11 @@ public class CalculatorApp {
 		
 		// %
 		btnPerc = new JButton("%");
+		btnPerc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				percantageAction();
+			}
+		});
 		btnPerc.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnPerc.setBounds(196, 87, 83, 50);
 		frmCalculator.getContentPane().add(btnPerc);
@@ -358,6 +363,11 @@ public class CalculatorApp {
 			opActive = true;
 			operator=op;
 		}
+	}
+	
+	private void percantageAction() {
+		value=Double.valueOf(calText.getText());
+		calText.setText(value/100+"");
 	}
 	
 	private void sumAction() {
